@@ -15,7 +15,7 @@ export default function PrintableGame({ tasks }: { tasks: Task[] }) {
 	}, [tasks]);
 	return (
 		<section
-			className="border border-gold border-dotted mx-auto mb-14 pb-16 px-16 hide-border-print flex flex-col justify-around"
+			className="border border-gold border-dotted mx-auto mb-14 print:mb-0 pb-16 px-16 hide-border-print flex flex-col justify-around"
 			style={{ width: 723 }}
 		>
 			<header className="text-gold text-center mt-16">

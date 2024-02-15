@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import PrintableGame, { Task } from '@/components/PrintableGame';
 import { Averia_Serif_Libre } from 'next/font/google';
 import { useState } from 'react';
