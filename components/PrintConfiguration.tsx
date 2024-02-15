@@ -1,12 +1,6 @@
 'use client';
 import PrintableGame, { Task } from '@/components/PrintableGame';
-import { Averia_Serif_Libre } from 'next/font/google';
 import { useState } from 'react';
-
-const font = Averia_Serif_Libre({
-  weight: '400',
-  subsets: ['latin'],
-});
 
 export default function PrintConfiguration({ tasks }: { tasks: Task[] }) {
   const [copies, setCopies] = useState<number>(1);
@@ -18,7 +12,7 @@ export default function PrintConfiguration({ tasks }: { tasks: Task[] }) {
   };
 
   return (
-    <main className={`min-h-screen ${font.className}`}>
+    <main className="min-h-screen">
       <div
         className="flex w-full justify-center pr-40 flex-col mt-24 mx-auto print:hidden"
         style={{ width: 723 }}
