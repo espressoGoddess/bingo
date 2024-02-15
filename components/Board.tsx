@@ -1,4 +1,7 @@
+import Image from 'next/image';
 import { Task } from './PrintableGame';
+import centerPhoto from '@/assets/bingo-center.png';
+
 export default function Board({ tasks }: { tasks: Task[] }) {
 	return (
 		<div>
@@ -18,7 +21,7 @@ function BoardRow({ tasks, center }: { tasks: Task[]; center?: boolean }) {
 			className={`w-1/5 h-28 text-sm text-gold text-center border-lightGold border m-0.5 rounded-sm flex items-center ${task.type === 'string' ? 'p-2' : ''}`}
 			key={index}
 		>
-			{task.type === 'string' ? task.task : <img src="./bingo-center.png" alt="a + e, andrew and erika" />}
+			{task.type === 'string' ? task.task : <Image src={centerPhoto} alt="a + e, andrew and erika" />}
 		</article>
 	));
 	return <div className="flex">{items}</div>;

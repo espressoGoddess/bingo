@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Board from './Board';
 import { useEffect, useState } from 'react';
+import footerPhoto from '@/assets/footer-flowers.png';
 
 export type Task = {
 	type: string;
@@ -27,7 +28,7 @@ export default function PrintableGame({ tasks }: { tasks: Task[] }) {
 			</header>
 			<Board tasks={taskCache} />
 			<footer className="flex w-full justify-center items-center pt-14">
-				<Image alt="poppy flowers outlined in gold" height={89} width={250} src="/footer-flowers.png" />
+				<Image alt="poppy flowers outlined in gold" height={89} width={250} src={footerPhoto} />
 			</footer>
 		</section>
 	);
