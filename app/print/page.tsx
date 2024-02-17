@@ -1,12 +1,13 @@
-  // import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 
-import PrintConfiguration from "@/components/PrintConfiguration";
+import PrintConfiguration from '@/components/PrintConfiguration';
 
-  export default async function Notes() {
-    // const supabase = createClient();
-    // const { data: notes } = await supabase.from("notes").select();
+export default async function Notes() {
+  const supabase = createClient();
+  const { data: notes } = await supabase.from('notes').select();
+  console.log('notables', notes);
 
-    const tasks = [
+  const tasks = [
     { type: 'string', task: 'Ride the High Roller' },
     { type: 'string', task: 'Photo with bride and groom' },
     { type: 'string', task: 'Play a song on a jukebox' },
@@ -33,5 +34,5 @@ import PrintConfiguration from "@/components/PrintConfiguration";
     { type: 'string', task: 'Get a free drink' },
   ];
 
-    return <PrintConfiguration tasks={tasks} />
-  }
+  return <PrintConfiguration tasks={tasks} />;
+}
