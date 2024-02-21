@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Task } from './PrintableGame';
 import centerPhoto from '@/assets/bingo-center.png';
+import { UserTask } from '@/utils/types';
 
 export default function Board({ tasks }: { tasks: Task[] }) {
 	return (

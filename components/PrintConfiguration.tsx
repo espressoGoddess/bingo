@@ -1,5 +1,6 @@
 'use client';
-import PrintableGame, { Task } from '@/components/PrintableGame';
+import { Task } from '@/utils/types';
+import PrintableGame from '@/components/PrintableGame';
 import { useState } from 'react';
 
 export default function PrintConfiguration({ tasks }: { tasks: Task[] }) {
