@@ -1,23 +1,21 @@
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import getUser from '@/utils/auth';
 
 export default async function Home() {
   // Get user session token
-  const session = await getServerSession(authOptions);
-  console.log('session', session);
+  const user = await getUser();
 
   return (
     <div>
       <h2>My Amazing App</h2>
 
-      {session && (
+      {user && (
         <div>
-          <p>Signed in as {session.user && session.user.name}</p>
+          <p>Signed in as {user.name && user.email}</p>
           <a href="/api/auth/signout">Sign out by link</a>
         </div>
       )}
 
-      {!session && <p>Not signed in</p>}
+      {!user && <p>Not signed in</p>}
     </div>
   );
 }
