@@ -2,16 +2,13 @@ import Image from 'next/image';
 import Board from './Board';
 import { useEffect, useState } from 'react';
 import footerPhoto from '@/assets/footer-flowers.png';
-
-export type Task = {
-	type: string;
-	task?: string;
-};
+import { Task, UserTask } from '@/utils/types';
+import createBoard from '@/utils/createBoard';
 
 export default function PrintableGame({ tasks }: { tasks: Task[] }) {
-	const [taskCache, setTasks] = useState(tasks);
+	const [taskCache, setTasks] = useState<UserTask[] | undefined>();
 	useEffect(() => {
-		setTasks(shuffle(tasks));
+		setTasks(createBoard(tasks, 2));
 	}, [tasks]);
 	return (
 		<section
@@ -26,22 +23,10 @@ export default function PrintableGame({ tasks }: { tasks: Task[] }) {
 					<div className="w-8 bg-gold h-0.5 ml-2"></div>
 				</div>
 			</header>
-			<Board tasks={taskCache} />
+			<Board tasks={taskCache ?? []} />
 			<footer className="flex w-full justify-center items-center pt-14">
 				<Image alt="poppy flowers outlined in gold" height={89} width={250} src={footerPhoto} />
 			</footer>
 		</section>
 	);
-}
-
-function shuffle(a: any[]) {
-	const b = [...a];
-	var j, x, i;
-	for (i = b.length - 1; i > 0; i--) {
-		j = Math.floor(Math.random() * (i + 1));
-		x = b[i];
-		b[i] = b[j];
-		b[j] = x;
-	}
-	return b;
 }
