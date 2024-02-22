@@ -1,9 +1,10 @@
 import getUser from '@/utils/auth';
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
   // Get user session token
   const user = await getUser();
-
+  if (!user) return redirect('login');
   return (
     <div>
       <h2>My Amazing App</h2>

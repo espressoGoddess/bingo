@@ -4,7 +4,7 @@ import './globals.css';
 import { Averia_Serif_Libre } from 'next/font/google';
 
 const font = Averia_Serif_Libre({
-  weight: '400',
+  weight: '300',
   subsets: ['latin'],
 });
 
