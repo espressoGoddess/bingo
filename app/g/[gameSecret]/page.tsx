@@ -30,4 +30,10 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 			</section>
 		);
 	}
+	return (
+		<section className="text-gold text-l mt-28 mx-8">
+			<h1 className="text-3xl">GAME NOT FOUND</h1>
+			<p className="text-center">Try a different secret</p>
+		</section>
+	);
 }
