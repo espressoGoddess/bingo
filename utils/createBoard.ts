@@ -6,15 +6,19 @@
 
 import { Task } from './types';
 
-//add center with fixedd lovation
+//add center with fixed location
 export default function createBoard(tasks: Task[], userId: number) {
-	//verify length of items (in case theres too many)
+	if (tasks.length < 24) {
+		throw new Error('Not enough tasks for game');
+	}
+	const game_id = tasks[0].game_id;
 	const center = tasks
 		.filter((task) => task.type === 'center')
 		.map((task) => ({
 			task_id: task.id,
 			user_id: userId,
 			completed: false,
+			game_id,
 			grid_row: 2,
 			grid_column: 2,
 			description: task.description,
@@ -29,6 +33,7 @@ export default function createBoard(tasks: Task[], userId: number) {
 			task_id: remaining[i].id,
 			user_id: userId,
 			completed: false,
+			game_id,
 			grid_row: row,
 			grid_column: col,
 			description: remaining[i].description,
@@ -55,5 +60,3 @@ function shuffle(a: Task[]) {
 	}
 	return b;
 }
-
-//from('userTasks').select('*, tasks:task_id (*)')

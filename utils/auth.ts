@@ -2,6 +2,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
+import { User } from './types';
 
 export default async function getUser() {
 	const session = await getServerSession(authOptions);
@@ -17,6 +18,6 @@ export default async function getUser() {
 		if (!newUser) throw new Error('failed to create new user');
 		return newUser[0];
 	}
-	return user[0];
+	return user[0] as User;
 }
 //if error tell user to retry?
