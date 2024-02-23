@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import centerPhoto from '@/assets/bingo-center.png';
-import { UserTask } from '@/utils/types';
+import { EnrichedUserTask } from '@/utils/types';
 
-export default function Board({ tasks }: { tasks: UserTask[] }) {
+export default function Board({ tasks }: { tasks: EnrichedUserTask[] }) {
 	const orderedTasks = tasks.sort((a, b) => a.grid_row - b.grid_row);
 	return (
 		<div>
@@ -15,7 +15,7 @@ export default function Board({ tasks }: { tasks: UserTask[] }) {
 	);
 }
 
-function BoardRow({ userTasks }: { userTasks: UserTask[] }) {
+function BoardRow({ userTasks }: { userTasks: EnrichedUserTask[] }) {
 	const orderedTasks = userTasks.sort((a, b) => a.grid_column - b.grid_column);
 	const items = orderedTasks.map((task, index) => (
 		<article

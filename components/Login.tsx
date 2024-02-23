@@ -1,8 +1,10 @@
 'use client';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 
 export default function Component() {
   const { data: session } = useSession();
+  const callbackUrl = useSearchParams().get('redirect_to');
   if (session) {
     return (
       <>
@@ -17,7 +19,7 @@ export default function Component() {
       <button
         onClick={() =>
           signIn('google', {
-            callbackUrl: '/print',
+            callbackUrl: callbackUrl ?? '',
           })
         }
       >
