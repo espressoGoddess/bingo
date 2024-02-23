@@ -4,7 +4,7 @@ import PrintConfiguration from '@/components/PrintConfiguration';
 import getUser from '@/utils/auth';
 
 export default async function print() {
-  await getUser();
+  await getUser('/print');
 
   const supabase = createClient();
 

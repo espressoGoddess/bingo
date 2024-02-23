@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 				<div className="w-full flex justify-center">
 					<Link
 						className="border bg-lightGold text-5xl py-2 px-20 rounded-md border-lightGold bg-opacity-20"
-						href="/login"
+						href={`/g/${params.gameSecret}/b`}
 					>
 						Start
 					</Link>

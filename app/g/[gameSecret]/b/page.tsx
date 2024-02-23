@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/server';
 
 export default async function Page({ params }: { params: { gameSecret: string } }) {
 	const supabase = createClient();
-	const user = await getUser();
+	const user = await getUser(`/g/${params.gameSecret}/b/`);
 	const { data: games } = await supabase
 		.from('games')
 		.select()

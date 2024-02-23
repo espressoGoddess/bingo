@@ -2,7 +2,7 @@ import getUser from '@/utils/auth';
 
 export default async function Home() {
   // Get user session token
-  const user = await getUser();
+  const user = await getUser('/');
   return (
     <div>
       <h2>My Amazing App</h2>

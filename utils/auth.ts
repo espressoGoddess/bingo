@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
 import { User } from './types';
 
-export default async function getUser() {
+export default async function getUser(redirectTo?: string) {
 	const session = await getServerSession(authOptions);
-	if (!session) return redirect('/login');
+	if (!session) return redirect(`/login?redirect_to=${encodeURIComponent(redirectTo ?? '')}`);
 	const supabase = createClient();
 
 	const { data: user } = await supabase.from('users').select().eq('email', session.user?.email);
