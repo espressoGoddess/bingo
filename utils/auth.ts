@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
 import { User } from './types';
 
-export default async function getUser(redirectTo?: string) {
+export default async function getUser(redirectTo?: string): Promise<User> {
 	const session = await getServerSession(authOptions);
 	if (!session) return redirect(`/login?redirect_to=${encodeURIComponent(redirectTo ?? '')}`);
 	const supabase = createClient();
@@ -18,6 +18,6 @@ export default async function getUser(redirectTo?: string) {
 		if (!newUser) throw new Error('failed to create new user');
 		return newUser[0];
 	}
-	return user[0] as User;
+	return user[0];
 }
 //if error tell user to retry?

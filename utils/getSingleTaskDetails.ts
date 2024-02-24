@@ -24,5 +24,6 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
     completed: singleTaskDetails.completed,
     grid_row: singleTaskDetails.grid_row,
     grid_column: singleTaskDetails.grid_column,
+    id: usersTaskId,
   };
 }

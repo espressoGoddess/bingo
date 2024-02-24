@@ -13,7 +13,3 @@ export default function Board({ tasks }: { tasks: EnrichedUserTask[] }) {
 		</div>
 	);
 }
-
-// @TODO - make tasks clickable (for digital/non-print version), link to detail page
-//if its center, just mark as complete
-//otherwise open details page

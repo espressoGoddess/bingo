@@ -24,6 +24,7 @@ export type User = {
 	email: string;
 	profile_photo: string;
 	name: string;
+	id: number;
 };
 
 export type SingleTaskDetails = {
@@ -31,4 +32,6 @@ export type SingleTaskDetails = {
 	completed: boolean;
 	grid_row: number;
 	grid_column: number;
+	completed_at?: Date;
+	id: number;
 };
