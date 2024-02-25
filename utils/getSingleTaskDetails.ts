@@ -1,3 +1,4 @@
+import parseDate from './ParseDate';
 import { createClient } from './supabase/server';
 import { UserTask } from './types';
 
@@ -18,6 +19,10 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
       description: string;
     };
   } = data[0];
+  let formattedDateTime;
+  if (singleTaskDetails.completed_at) {
+    formattedDateTime = parseDate(singleTaskDetails.completed_at);
+  }
 
   return {
     description: singleTaskDetails.task.description,
@@ -25,5 +30,6 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
     grid_row: singleTaskDetails.grid_row,
     grid_column: singleTaskDetails.grid_column,
     id: usersTaskId,
+    completed_at: formattedDateTime,
   };
 }

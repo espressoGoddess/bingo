@@ -5,11 +5,12 @@ export default async function updateCompletedStatusOfTask(
   newCompletedStatus: boolean,
   id: number,
   userId: number,
+  completedAt: Date,
 ) {
   const supabase = createClient();
   const { data: completedTask, error: fetchError } = await supabase
     .from('users_tasks')
-    .update({ completed: newCompletedStatus })
+    .update({ completed: newCompletedStatus, completed_at: completedAt })
     .eq('id', id)
     .eq('user_id', userId)
     .select(`*, tasks:tasks(description)`);
@@ -18,9 +19,8 @@ export default async function updateCompletedStatusOfTask(
     throw fetchError;
   }
   if (!completedTask?.length) {
-    throw new Error('bleebloo, cant find user task');
+    throw new Error("Can't find user task");
   }
-
   const singleTaskDetails: UserTask & {
     tasks: {
       description: string;
@@ -32,5 +32,6 @@ export default async function updateCompletedStatusOfTask(
     completed: singleTaskDetails.completed,
     grid_row: singleTaskDetails.grid_row,
     grid_column: singleTaskDetails.grid_column,
+    completed_at: singleTaskDetails.completed_at,
   };
 }

@@ -3,11 +3,11 @@ import updateCompletedStatusOfTask from '@/utils/updateCompletedStatusOfTask';
 import getUser from '@/utils/auth';
 
 async function handler(req: NextRequest) {
-  const { id, newCompletedStatus } = await req.json();
+  const { id, newCompletedStatus, completedAt } = await req.json();
   const user = await getUser();
 
   try {
-    const updatedTask = await updateCompletedStatusOfTask(newCompletedStatus, id, user.id);
+    const updatedTask = await updateCompletedStatusOfTask(newCompletedStatus, id, user.id, completedAt);
     return NextResponse.json({ updatedTask });
   } catch (error) {
     console.error('Error updating task:', error);
