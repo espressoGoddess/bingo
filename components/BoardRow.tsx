@@ -9,10 +9,6 @@ export default function BoardRow({ userTasks }: { userTasks: EnrichedUserTask[] 
 	const orderedTasks = userTasks.sort((a, b) => a.grid_column - b.grid_column);
 	const handleClick = (task: EnrichedUserTask) => {
 		if (task.type !== 'center') {
-			if (task.type === 'empty') {
-				router.push(`b/${task.id}/freespace`);
-				return;
-			}
 			router.push(`b/${task.id}`);
 		}
 	};
