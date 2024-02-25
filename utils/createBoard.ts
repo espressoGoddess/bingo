@@ -1,12 +1,5 @@
-//fn that takes a list of tasks, returns an array of user tasks, then use the Board component to render
-//filter to remove center
-//shuffle remaining
-//loop thru and assign grid row and column
-//when get to row 2 column 2, skip
-
 import { Task } from './types';
 
-//add center with fixed location
 export default function createBoard(tasks: Task[], userId: number) {
 	if (tasks.length < 24) {
 		throw new Error('Not enough tasks for game');

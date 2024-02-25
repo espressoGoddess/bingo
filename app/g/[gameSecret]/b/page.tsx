@@ -27,16 +27,21 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	}
 
 	const newTasks = createBoard(tasks, user.id);
-	const newUserTasks = newTasks.map((task) => ({
-		task_id: task.task_id,
-		user_id: task.user_id,
-		completed: task.completed,
-		grid_row: task.grid_row,
-		grid_column: task.grid_column,
-	}));
-	const { error } = await supabase.from('users_tasks').insert(newUserTasks).select();
+	const { error } = await supabase
+		.from('users_tasks')
+		.insert(
+			newTasks.map((task) => ({
+				task_id: task.task_id,
+				user_id: task.user_id,
+				completed: task.completed,
+				grid_row: task.grid_row,
+				grid_column: task.grid_column,
+			})),
+		)
+		.select();
+	const newUserTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	if (error) {
 		throw error;
 	}
-	return <Board tasks={newTasks} />;
+	return <Board tasks={newUserTasks} />;
 }

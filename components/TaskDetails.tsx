@@ -1,5 +1,5 @@
 'use client';
-import parseDate from '@/utils/ParseDate';
+import parseDate from '@/utils/parseDate';
 import { SingleTaskDetails } from '@/utils/types';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -8,6 +8,7 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 	const [taskCache, setTaskCache] = useState(task);
 
 	const updateStatus = async () => {
+		//is loading? return early
 		try {
 			const completedDate = taskCache.completed ? null : new Date();
 
