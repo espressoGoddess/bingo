@@ -8,10 +8,8 @@
   "dependencies": {
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
-    "@types/luxon": "^3.4.2",
     "autoprefixer": "10.4.17",
     "geist": "^1.2.1",
-    "luxon": "^3.4.4",
     "next": "latest",
     "next-auth": "^4.24.6",
     "postcss": "8.4.33",
