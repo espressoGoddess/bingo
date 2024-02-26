@@ -1,4 +1,4 @@
-import parseDate from './ParseDate';
+import parseDate from './parseDate';
 import { createClient } from './supabase/server';
 import { UserTask } from './types';
 
@@ -6,7 +6,7 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
   const supabase = createClient();
   const { data, error: fetchError } = await supabase
     .from('users_tasks')
-    .select(`*,task:tasks(description)`)
+    .select(`*,task:tasks(description, type)`)
     .eq('id', usersTaskId)
     .eq('user_id', userId)
     .eq('tasks.game_id', gameId);
@@ -17,6 +17,7 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
   const singleTaskDetails: UserTask & {
     task: {
       description: string;
+      type: string;
     };
   } = data[0];
   let formattedDateTime;
@@ -31,5 +32,6 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
     grid_column: singleTaskDetails.grid_column,
     id: usersTaskId,
     completed_at: formattedDateTime,
+    type: singleTaskDetails.task.type,
   };
 }

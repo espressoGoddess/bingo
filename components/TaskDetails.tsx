@@ -37,10 +37,14 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 			console.error('Error updating task:', error);
 		}
 	};
-
 	return (
 		<section className="text-gold mt-28 mx-8">
-			<h1 className="text-5xl">{taskCache.description?.toUpperCase()}.</h1>
+			{taskCache.type === 'empty' ? (
+				<textarea placeholder="Add Your Task"></textarea>
+			) : (
+				<h1 className="text-5xl">{taskCache.description?.toUpperCase()}.</h1>
+			)}
+
 			<div className="flex flex-col items-center">
 				<p
 					className={`flex items-center justify-center mt-14 ${taskCache.completed_at ? 'w-full' : 'w-1/2'}`}

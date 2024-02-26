@@ -35,4 +35,5 @@ export type SingleTaskDetails = {
 	grid_column: number;
 	completed_at?: string;
 	id: number;
+	type: string;
 };
