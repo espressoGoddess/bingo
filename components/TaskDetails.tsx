@@ -39,35 +39,50 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 	};
 	return (
 		<section className="text-gold mt-28 mx-8">
-			{taskCache.type === 'empty' ? (
-				<textarea placeholder="Add Your Task"></textarea>
+			{!taskCache.description ? (
+				<form onSubmit={(e) => addFreeSpaceTask(e)} className="flex flex-col items-center justify-center">
+					<textarea
+						className="text-2xl border rounded-sm border-lightGold p-3 h-"
+						placeholder="Add Your Task"
+						value={freeSpaceTask}
+						onChange={(e) => setFreeSpaceTask(e.target.value)}
+					></textarea>
+					<button className="w-28 border text-center leading-4 bg-lightGold text-l py-2 px-8 rounded-sm border-lightGold bg-opacity-40 my-5">
+						Save
+					</button>
+				</form>
 			) : (
-				<h1 className="text-5xl">{taskCache.description?.toUpperCase()}.</h1>
-			)}
-
-			<div className="flex flex-col items-center">
-				<p
-					className={`flex items-center justify-center mt-14 ${taskCache.completed_at ? 'w-full' : 'w-1/2'}`}
-				>
-					Completed:{' '}
-					{taskCache.completed_at ? (
-						taskCache.completed_at
-					) : (
-						<span className="w-10 ml-3 border border-gold"></span>
+				<>
+					<h1 className="text-5xl">{taskCache.description.toUpperCase()}.</h1>
+					{taskCache.description && (
+						<div className="flex flex-col items-center">
+							<p
+								className={`flex items-center justify-center mt-14 ${taskCache.completed_at ? 'w-full' : 'w-1/2'}`}
+							>
+								Completed:{' '}
+								{taskCache.completed_at ? (
+									taskCache.completed_at
+								) : (
+									<span className="w-10 ml-3 border border-gold"></span>
+								)}
+							</p>
+							<Link
+								className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 my-5"
+								href="/"
+							>
+								Upload Photo
+							</Link>
+							<p
+								className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 mb-5"
+								onClick={updateStatus}
+							>
+								{!taskCache.completed ? 'Mark Completed' : 'Mark Incomplete'}
+							</p>
+						</div>
 					)}
-				</p>
-				<Link
-					className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 my-5"
-					href="/"
-				>
-					Upload Photo
-				</Link>
-				<p
-					className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 mb-5"
-					onClick={updateStatus}
-				>
-					{!taskCache.completed ? 'Mark Completed' : 'Mark Incomplete'}
-				</p>
+				</>
+			)}
+			<div className="flex justify-center">
 				<Link
 					className="w-40 border text-center leading-4 bg-lightGold text-l py-4 px-12 rounded-sm border-lightGold bg-opacity-40"
 					href={`/g/${gameSecret}/b`}
