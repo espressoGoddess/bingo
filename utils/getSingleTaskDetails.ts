@@ -34,11 +34,12 @@ export default async function getSingleTaskDetails(gameId: number, userId: numbe
       .eq('user_task_id', usersTaskId)
       .eq('user_id', userId);
 
+    if (freeSpaceTaskError) {
+      throw freeSpaceTaskError;
+    }
+      
     if (freeSpaceTask?.length) {
       description = freeSpaceTask[0].description;
-      if (freeSpaceTaskError) {
-        throw freeSpaceTaskError;
-      }
     }
   }
 
