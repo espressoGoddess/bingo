@@ -1,8 +1,18 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { getServerSession } from 'next-auth';
+import { NextAuthOptions, getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { createClient } from './supabase/server';
 import { User } from './types';
+import GoogleProvider from 'next-auth/providers/google';
+
+export const authOptions: NextAuthOptions = {
+	providers: [
+		GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID as string,
+			clientSecret: process.env.GOOGLE_SECRET_ID as string,
+		}),
+	],
+	secret: process.env.NEXTAUTH_SECRET as string,
+};
 
 export default async function getUser(redirectTo?: string): Promise<User> {
 	const session = await getServerSession(authOptions);
