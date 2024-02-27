@@ -1,5 +1,4 @@
 import { createClient } from './supabase/server';
-import { UserTask } from './types';
 
 export default async function updateCompletedStatusOfTask(
   newCompletedStatus: boolean,
@@ -13,7 +12,7 @@ export default async function updateCompletedStatusOfTask(
     .update({ completed: newCompletedStatus, completed_at: completedAt })
     .eq('id', id)
     .eq('user_id', userId)
-    .select(`*, tasks:tasks(description)`);
+    .select();
 
   if (fetchError) {
     throw fetchError;
@@ -21,17 +20,9 @@ export default async function updateCompletedStatusOfTask(
   if (!completedTask?.length) {
     throw new Error("Can't find user task");
   }
-  const singleTaskDetails: UserTask & {
-    tasks: {
-      description: string;
-    };
-  } = completedTask[0];
 
   return {
-    description: singleTaskDetails.tasks.description,
-    completed: singleTaskDetails.completed,
-    grid_row: singleTaskDetails.grid_row,
-    grid_column: singleTaskDetails.grid_column,
-    completed_at: singleTaskDetails.completed_at,
+    completed: completedTask[0].completed,
+    completed_at: completedTask[0].completed_at,
   };
 }

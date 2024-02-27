@@ -37,7 +37,7 @@ export default async function getSingleTaskDetails(gameId: number, userId: numbe
     if (freeSpaceTaskError) {
       throw freeSpaceTaskError;
     }
-      
+
     if (freeSpaceTask?.length) {
       description = freeSpaceTask[0].description;
     }

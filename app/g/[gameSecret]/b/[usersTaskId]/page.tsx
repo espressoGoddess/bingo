@@ -15,5 +15,6 @@ export default async function Page({ params }: { params: { gameSecret: string; u
 		return <p>Error: no game</p>;
 	}
 	const singleTaskDetails = await getSingleTaskDetails(games[0].id, user.id, params.usersTaskId);
+	// @TODO - image uploads
 	return <TaskDetails task={singleTaskDetails} gameSecret={params.gameSecret} />;
 }

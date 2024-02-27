@@ -33,7 +33,7 @@ export type SingleTaskDetails = {
 	completed: boolean;
 	grid_row: number;
 	grid_column: number;
-	completed_at?: string;
+	completed_at: string | null;
 	id: number;
 	type: string;
 };

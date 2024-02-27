@@ -57,7 +57,11 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 			const completedAt = responseData.updatedTask.completed_at
 				? parseDate(responseData.updatedTask.completed_at)
 				: null;
-			setTaskCache({ ...responseData.updatedTask, completed_at: completedAt });
+			setTaskCache({
+				...taskCache,
+				completed_at: completedAt,
+				completed: responseData.updatedTask.completed,
+			});
 		} catch (error) {
 			console.error('Error updating task:', error);
 		}
@@ -73,41 +77,39 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 						value={freeSpaceTask}
 						onChange={(e) => setFreeSpaceTask(e.target.value)}
 					></textarea>
-					// disable if loading?
+					{/* disable if loading?*/}
 					<button className="w-28 border text-center leading-4 bg-lightGold text-l py-2 px-8 rounded-sm border-lightGold bg-opacity-40 my-5">
 						Save
 					</button>
 				</form>
 			) : (
-				<>
+				<section className="m-8">
 					<h1 className="text-5xl">{taskCache.description.toUpperCase()}.</h1>
-					{taskCache.description && (
-						<div className="flex flex-col items-center">
-							<p
-								className={`flex items-center justify-center mt-14 ${taskCache.completed_at ? 'w-full' : 'w-1/2'}`}
-							>
-								Completed:{' '}
-								{taskCache.completed_at ? (
-									taskCache.completed_at
-								) : (
-									<span className="w-10 ml-3 border border-gold"></span>
-								)}
-							</p>
-							<Link
-								className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 my-5"
-								href="/"
-							>
-								Upload Photo
-							</Link>
-							<p
-								className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 mb-5"
-								onClick={updateStatus}
-							>
-								{!taskCache.completed ? 'Mark Completed' : 'Mark Incomplete'}
-							</p>
-						</div>
-					)}
-				</>
+					<div className="flex flex-col items-center">
+						<p
+							className={`flex items-center justify-center mt-14 ${taskCache.completed_at ? 'w-full' : 'w-1/2'}`}
+						>
+							Completed:{' '}
+							{taskCache.completed_at ? (
+								taskCache.completed_at
+							) : (
+								<span className="w-10 ml-3 border border-gold"></span>
+							)}
+						</p>
+						<Link
+							className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 my-5"
+							href="/"
+						>
+							Upload Photo
+						</Link>
+						<p
+							className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 mb-5"
+							onClick={updateStatus}
+						>
+							{!taskCache.completed ? 'Mark Completed' : 'Mark Incomplete'}
+						</p>
+					</div>
+				</section>
 			)}
 			<div className="flex justify-center">
 				<Link
