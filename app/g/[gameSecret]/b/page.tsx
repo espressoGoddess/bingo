@@ -37,8 +37,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 				grid_row: task.grid_row,
 				grid_column: task.grid_column,
 			})),
-		)
-		.select();
+		);
 	const newUserTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	if (error) {
 		throw error;
