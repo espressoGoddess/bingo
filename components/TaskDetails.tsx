@@ -6,6 +6,31 @@ import { useState } from 'react';
 
 export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDetails; gameSecret: string }) {
 	const [taskCache, setTaskCache] = useState(task);
+	const [freeSpaceTask, setFreeSpaceTask] = useState('');
+
+	const addFreeSpaceTask = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			const response = await fetch('/api/addFreeSpaceTask', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					freeSpaceUserTask: freeSpaceTask,
+					id: taskCache.id,
+				}),
+			});
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+
+			const newTask = await response.json();
+			setTaskCache({ ...taskCache, description: newTask.newFreeSpaceUserTask });
+		} catch (error) {
+			console.error('Error adding task:', error);
+		}
+	};
 
 	const updateStatus = async () => {
 		//is loading? return early
@@ -42,11 +67,13 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 			{!taskCache.description ? (
 				<form onSubmit={(e) => addFreeSpaceTask(e)} className="flex flex-col items-center justify-center">
 					<textarea
+						required
 						className="text-2xl border rounded-sm border-lightGold p-3 h-"
 						placeholder="Add Your Task"
 						value={freeSpaceTask}
 						onChange={(e) => setFreeSpaceTask(e.target.value)}
 					></textarea>
+					// disable if loading?
 					<button className="w-28 border text-center leading-4 bg-lightGold text-l py-2 px-8 rounded-sm border-lightGold bg-opacity-40 my-5">
 						Save
 					</button>
