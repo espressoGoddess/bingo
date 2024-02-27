@@ -19,9 +19,5 @@ export default async function addFreeSpaceUserTask(
 		throw new Error('issue adding task');
 	}
 
-	return {
-		user_id: userId,
-		description: freeSpaceUserTask,
-		user_task_id: taskId,
-	};
+	return freeSpaceUserTask;
 }
