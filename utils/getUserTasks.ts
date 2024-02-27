@@ -1,5 +1,5 @@
 import { createClient } from './supabase/server';
-import { EnrichedUserTask, Task, UserTask } from './types';
+import { EnrichedUserTask, UserTask } from './types';
 
 export default async function getUserTasksWithInfo(
   gameId: number,

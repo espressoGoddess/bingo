@@ -1,6 +1,5 @@
-import Image from 'next/image';
-import centerPhoto from '@/assets/bingo-center.png';
 import { EnrichedUserTask } from '@/utils/types';
+import BoardRow from './BoardRow';
 
 export default function Board({ tasks }: { tasks: EnrichedUserTask[] }) {
 	const orderedTasks = tasks.sort((a, b) => a.grid_row - b.grid_row);
@@ -13,17 +12,4 @@ export default function Board({ tasks }: { tasks: EnrichedUserTask[] }) {
 			<BoardRow userTasks={orderedTasks.slice(20, 25)} />
 		</div>
 	);
-}
-
-function BoardRow({ userTasks }: { userTasks: EnrichedUserTask[] }) {
-	const orderedTasks = userTasks.sort((a, b) => a.grid_column - b.grid_column);
-	const items = orderedTasks.map((task, index) => (
-		<article
-			className={`w-1/5 h-28 text-sm text-gold text-center border-lightGold border m-0.5 rounded-sm flex items-center ${task.type !== 'center' ? 'p-2' : ''}`}
-			key={index}
-		>
-			{task.type !== 'center' ? task.description : <Image src={centerPhoto} alt="a + e, andrew and erika" />}
-		</article>
-	));
-	return <div className="flex">{items}</div>;
 }

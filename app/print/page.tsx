@@ -3,6 +3,7 @@ import { createClient } from '@/utils/supabase/server';
 import PrintConfiguration from '@/components/PrintConfiguration';
 import getUser from '@/utils/auth';
 
+// @TODO - move to /g/:gameSecret/print/page.tsx, load game using secret
 export default async function print() {
   await getUser('/print');
 

@@ -11,6 +11,8 @@ export type UserTask = {
 	completed: boolean;
 	grid_row: number;
 	grid_column: number;
+	id: number;
+	completed_at?: Date;
 };
 
 export type EnrichedUserTask = UserTask & {
@@ -23,4 +25,15 @@ export type User = {
 	email: string;
 	profile_photo: string;
 	name: string;
+	id: number;
+};
+
+export type SingleTaskDetails = {
+	description: string;
+	completed: boolean;
+	grid_row: number;
+	grid_column: number;
+	completed_at: string | null;
+	id: number;
+	type: string;
 };
