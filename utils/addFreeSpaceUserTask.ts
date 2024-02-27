@@ -6,7 +6,6 @@ export default async function addFreeSpaceUserTask(
 	taskId: number,
 ) {
 	const supabase = createClient();
-	console.log(freeSpaceUserTask, 'description inside route');
 	const { data, error: fetchError } = await supabase
 		.from('free_space_user_added_tasks')
 		.insert({ user_id: userId, description: freeSpaceUserTask, user_task_id: taskId })
