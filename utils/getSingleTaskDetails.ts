@@ -2,8 +2,9 @@ import parseDate from './parseDate';
 import { createClient } from './supabase/server';
 import { UserTask } from './types';
 
-export default async function getUserTasksWithInfo(gameId: number, userId: number, usersTaskId: number) {
+export default async function getSingleTaskDetails(gameId: number, userId: number, usersTaskId: number) {
   const supabase = createClient();
+
   const { data, error: fetchError } = await supabase
     .from('users_tasks')
     .select(`*,task:tasks(description, type)`)
@@ -14,7 +15,7 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
   if (fetchError) {
     throw fetchError;
   }
-  const singleTaskDetails: UserTask & {
+  let singleTaskDetails: UserTask & {
     task: {
       description: string;
       type: string;
@@ -25,8 +26,24 @@ export default async function getUserTasksWithInfo(gameId: number, userId: numbe
     formattedDateTime = parseDate(singleTaskDetails.completed_at);
   }
 
+  let description = singleTaskDetails.task.description;
+  if (singleTaskDetails.task.type === 'empty') {
+    const { data: freeSpaceTask, error: freeSpaceTaskError } = await supabase
+      .from('free_space_user_added_tasks')
+      .select()
+      .eq('user_task_id', usersTaskId)
+      .eq('user_id', userId);
+
+    if (freeSpaceTask?.length) {
+      description = freeSpaceTask[0].description;
+      if (freeSpaceTaskError) {
+        throw freeSpaceTaskError;
+      }
+    }
+  }
+
   return {
-    description: singleTaskDetails.task.description,
+    description,
     completed: singleTaskDetails.completed,
     grid_row: singleTaskDetails.grid_row,
     grid_column: singleTaskDetails.grid_column,
