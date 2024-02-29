@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 			<section className="text-gold text-l mt-28 mx-8">
 				<h1>
 					Welcome to <br />
-					<span className="text-5xl">{game[0].name}</span>
+					<span className="text-5xl">{game[0].name.toUpperCase() + '!'}</span>
 				</h1>
 				<p className="my-28">
 					A game of <br />
