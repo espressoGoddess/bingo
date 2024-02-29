@@ -40,7 +40,6 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	if (error) {
 		throw error;
 	}
-	// @TODO - if freespace is completed, render user-provided description
 	// @TODO - show feedback for completed tasks
 	return <Board tasks={newUserTasks} />;
 }
