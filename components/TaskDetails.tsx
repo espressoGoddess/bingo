@@ -1,10 +1,10 @@
 'use client';
-import parseDate from '@/utils/parseDate';
-import { SingleTaskDetails } from '@/utils/types';
+import formatDate from '@/utils/formatDate';
+import { EnrichedUserTask } from '@/utils/types';
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDetails; gameSecret: string }) {
+export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTask; gameSecret: string }) {
 	const [taskCache, setTaskCache] = useState(task);
 	const [freeSpaceTask, setFreeSpaceTask] = useState('');
 
@@ -54,13 +54,9 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 			}
 
 			const responseData = await response.json();
-			const completedAt = responseData.updatedTask.completed_at
-				? parseDate(responseData.updatedTask.completed_at)
-				: null;
 			setTaskCache({
 				...taskCache,
-				completed_at: completedAt,
-				completed: responseData.updatedTask.completed,
+				...responseData.updatedTask,
 			});
 		} catch (error) {
 			console.error('Error updating task:', error);
@@ -91,7 +87,7 @@ export default function TaskDetails({ task, gameSecret }: { task: SingleTaskDeta
 						>
 							Completed:{' '}
 							{taskCache.completed_at ? (
-								taskCache.completed_at
+								formatDate(taskCache.completed_at)
 							) : (
 								<span className="w-10 ml-3 border border-gold"></span>
 							)}

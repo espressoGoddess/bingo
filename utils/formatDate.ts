@@ -1,4 +1,4 @@
-export default function parseDate(date: Date) {
+export default function formatDate(date: Date) {
 	const completedAtDate = new Date(date);
 
 	// Get month abbreviation

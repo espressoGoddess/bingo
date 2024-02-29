@@ -1,8 +1,11 @@
-import parseDate from './parseDate';
 import { createClient } from './supabase/server';
-import { UserTask } from './types';
+import { EnrichedUserTask, UserTask } from './types';
 
-export default async function getSingleTaskDetails(gameId: number, userId: number, usersTaskId: number) {
+export default async function getSingleTaskDetails(
+  gameId: number,
+  userId: number,
+  usersTaskId: number,
+): Promise<EnrichedUserTask> {
   const supabase = createClient();
 
   const { data, error: fetchError } = await supabase
@@ -21,10 +24,6 @@ export default async function getSingleTaskDetails(gameId: number, userId: numbe
       type: string;
     };
   } = data[0];
-  let formattedDateTime;
-  if (singleTaskDetails.completed_at) {
-    formattedDateTime = parseDate(singleTaskDetails.completed_at);
-  }
 
   let description = singleTaskDetails.task.description;
   if (singleTaskDetails.task.type === 'empty') {
@@ -44,12 +43,15 @@ export default async function getSingleTaskDetails(gameId: number, userId: numbe
   }
 
   return {
+    task_id: singleTaskDetails.task_id,
+    game_id: gameId,
+    user_id: userId,
     description,
     completed: singleTaskDetails.completed,
     grid_row: singleTaskDetails.grid_row,
     grid_column: singleTaskDetails.grid_column,
     id: usersTaskId,
-    completed_at: formattedDateTime,
+    completed_at: singleTaskDetails.completed_at,
     type: singleTaskDetails.task.type,
   };
 }
