@@ -23,7 +23,7 @@ export default function PrintableGame({ tasks }: { tasks: Task[] }) {
 					<div className="w-8 bg-gold h-0.5 ml-2"></div>
 				</div>
 			</header>
-			<Board tasks={(taskCache as any[]) ?? []} />
+			<Board tasks={(taskCache as any[]) ?? []} printPreview />
 			<footer className="flex w-full justify-center items-center pt-14">
 				<Image alt="poppy flowers outlined in gold" height={89} width={250} src={footerPhoto} />
 			</footer>
