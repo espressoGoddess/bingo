@@ -4,7 +4,7 @@ import footerPhoto from '@/assets/footer-flowers.png';
 
 export default function ScreenLayout({ children, title }: { children: React.ReactNode; title: string }) {
 	return (
-		<section className="text-gold mx-2 max-w-lg overflow-x-scroll">
+		<section className="text-gold mx-2 max-w-lg w-full">
 			<h1 className="text-4xl my-10">{title.toUpperCase() + '!'}</h1>
 			{children}
 			<footer className="flex w-full justify-center items-center pt-8">
