@@ -1,6 +1,8 @@
 'use client';
+import addFreeSpaceUserTask from '@/utils/addFreeSpaceUserTask';
 import formatDate from '@/utils/formatDate';
 import { EnrichedUserTask } from '@/utils/types';
+import updateCompletedStatusOfTask from '@/utils/updateCompletedStatusOfTask';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -11,22 +13,8 @@ export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTa
 	const addFreeSpaceTask = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			const response = await fetch('/api/addFreeSpaceTask', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					freeSpaceUserTask: freeSpaceTask,
-					id: taskCache.id,
-				}),
-			});
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
-
-			const newTask = await response.json();
-			setTaskCache({ ...taskCache, description: newTask.newFreeSpaceUserTask });
+			await addFreeSpaceUserTask(freeSpaceTask, taskCache.id);
+			setTaskCache({ ...taskCache, description: freeSpaceTask });
 		} catch (error) {
 			console.error('Error adding task:', error);
 		}
@@ -37,26 +25,10 @@ export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTa
 		try {
 			const completedDate = taskCache.completed ? null : new Date();
 
-			const response = await fetch('/api/updateTaskStatus', {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					id: task.id,
-					newCompletedStatus: !taskCache.completed,
-					completedAt: completedDate,
-				}),
-			});
-
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
-
-			const responseData = await response.json();
+			const response = await updateCompletedStatusOfTask(!taskCache.completed, task.id, completedDate);
 			setTaskCache({
 				...taskCache,
-				...responseData.updatedTask,
+				...response,
 			});
 		} catch (error) {
 			console.error('Error updating task:', error);
