@@ -52,7 +52,9 @@ export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTa
 				</form>
 			) : (
 				<section className="m-8">
-					<h1 className="text-5xl">{taskCache.description.toUpperCase()}.</h1>
+					<h1 className="max-w-[100vw] text-5xl text-clip overflow-hidden hyphens-auto">
+						{taskCache.description.toUpperCase()}.
+					</h1>
 					<div className="flex flex-col items-center">
 						<p
 							className={`flex items-center justify-center mt-14 ${taskCache.completed_at ? 'w-full' : 'w-1/2'}`}

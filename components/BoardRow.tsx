@@ -45,7 +45,9 @@ function TaskContents({ task }: { task: EnrichedUserTask }) {
 	return (
 		<>
 			{task.completed ? (
-				<Image className="absolute top-5 left-0 opacity-40" alt="poker chip" src={chip} />
+				<div className="absolute z-10">
+					<Image className="max-w-[68px] opacity-60" alt="poker chip" src={chip} />
+				</div>
 			) : null}
 			{task.type !== 'center' ? (
 				<span className="text-ellipsis overflow-hidden hyphens-auto">{task.description}</span>
