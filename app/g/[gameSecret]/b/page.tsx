@@ -1,4 +1,5 @@
 import Board from '@/components/Board';
+import ScreenLayout from '@/components/ScreenLayout';
 import getUser from '@/utils/auth';
 import createBoard from '@/utils/createBoard';
 import getUserTasksWithInfo from '@/utils/getUserTasks';
@@ -18,7 +19,11 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 
 	const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	if (userTasks?.length) {
-		return <Board tasks={userTasks} />;
+		return (
+			<ScreenLayout title={games[0].name}>
+				<Board tasks={userTasks} />
+			</ScreenLayout>
+		);
 	}
 
 	const { data: tasks } = await supabase.from('tasks').select().eq('game_id', games[0].id);
@@ -40,6 +45,9 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	if (error) {
 		throw error;
 	}
-	// @TODO - show feedback for completed tasks
-	return <Board tasks={newUserTasks} />;
+	return (
+		<ScreenLayout title={games[0].name}>
+			<Board tasks={newUserTasks} />
+		</ScreenLayout>
+	);
 }

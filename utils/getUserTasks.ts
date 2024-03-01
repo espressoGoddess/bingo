@@ -25,8 +25,6 @@ export default async function getUserTasksWithInfo(
     }[];
   })[] = data;
 
-  console.log(userTasksWithInfo.map((doc) => doc.free_space_user_added_tasks).filter(Boolean));
-
   return userTasksWithInfo.map((uT) => ({
     ...uT,
     game_id: uT.tasks.game_id,
