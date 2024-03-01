@@ -66,12 +66,12 @@ export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTa
 								<span className="w-10 ml-3 border border-gold"></span>
 							)}
 						</p>
-						<Link
+						{/*<Link
 							className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 my-5"
 							href="/"
 						>
 							Upload Photo
-						</Link>
+						</Link>*/}
 						<p
 							className="w-48 border text-center leading-4 bg-lightGold text-l py-2 px-12 rounded-sm border-lightGold bg-opacity-20 mb-5"
 							onClick={updateStatus}
