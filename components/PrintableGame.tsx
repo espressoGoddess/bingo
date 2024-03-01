@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Board from './Board';
 import { useEffect, useState } from 'react';
 import footerPhoto from '@/assets/footer-flowers.png';
-import { Task, UserTask } from '@/utils/types';
+import { EnrichedUserTask, Task, UserTask } from '@/utils/types';
 import createBoard from '@/utils/createBoard';
 
 export default function PrintableGame({ tasks }: { tasks: Task[] }) {
@@ -23,10 +23,23 @@ export default function PrintableGame({ tasks }: { tasks: Task[] }) {
 					<div className="w-8 bg-gold h-0.5 ml-2"></div>
 				</div>
 			</header>
-			<Board tasks={taskCache ?? []} />
+			<Board tasks={(taskCache as any[]) ?? []} />
 			<footer className="flex w-full justify-center items-center pt-14">
 				<Image alt="poppy flowers outlined in gold" height={89} width={250} src={footerPhoto} />
 			</footer>
 		</section>
 	);
 }
+
+// function mockEnrichTasks(userTasks: UserTask[], gameId: number): EnrichedUserTask[] {
+// 	return userTasks.map(uT => ({
+// 		...uT,
+// 		task_id: uT.id,
+// 			user_id: 0,
+// 			completed: false,
+// 			game_id: gameId,
+// 			id: 0,
+// 			description: uT
+// 			completed_at: null,
+// 	}))
+// }

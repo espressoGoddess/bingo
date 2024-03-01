@@ -1,6 +1,6 @@
-import { Task } from './types';
+import { Task, UserTask } from './types';
 
-export default function createBoard(tasks: Task[], userId: number) {
+export default function createBoard(tasks: Task[], userId: number): UserTask[] {
 	if (tasks.length < 24) {
 		throw new Error('Not enough tasks for game');
 	}
@@ -16,6 +16,8 @@ export default function createBoard(tasks: Task[], userId: number) {
 			grid_column: 2,
 			description: task.description,
 			type: task.type,
+			id: 0,
+			completed_at: null,
 		}));
 	const remaining = shuffle(tasks.filter((task) => task.type !== 'center'));
 	let row = 0;
@@ -31,6 +33,8 @@ export default function createBoard(tasks: Task[], userId: number) {
 			grid_column: col,
 			description: remaining[i].description,
 			type: remaining[i].type,
+			id: 0,
+			completed_at: null,
 		});
 		col++;
 		if (col > 4) {
