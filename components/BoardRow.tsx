@@ -4,14 +4,20 @@ import Image from 'next/image';
 import centerPhoto from '@/assets/bingo-center.png';
 import { useRouter } from 'next/navigation';
 import chip from '@/assets/chip.png';
+import updateCompletedStatusOfTask from '@/utils/updateCompletedStatusOfTask';
 
 export default function BoardRow({ userTasks }: { userTasks: EnrichedUserTask[] }) {
 	const router = useRouter();
-	const handleClick = (task: EnrichedUserTask) => {
+	const handleClick = async (task: EnrichedUserTask) => {
 		if (task.type !== 'center') {
 			router.push(`b/${task.id}`);
 		} else {
-			// @TODO - handle center click
+			try {
+				await updateCompletedStatusOfTask(true, task.id, new Date());
+				router.refresh();
+			} catch (error) {
+				console.error('Error updating task:', error);
+			}
 		}
 	};
 	const orderedTasks = userTasks.sort((a, b) => a.grid_column - b.grid_column);
