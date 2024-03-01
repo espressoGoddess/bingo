@@ -28,13 +28,16 @@ export default function BoardRow({ userTasks }: { userTasks: EnrichedUserTask[] 
 }
 
 function TaskContents({ task }: { task: EnrichedUserTask }) {
-	// @TODO - truncate description (on screen only - print shows full description)
 	return (
 		<>
 			{task.completed ? (
 				<Image className="absolute top-5 left-0 opacity-40" alt="poker chip" src={chip} />
 			) : null}
-			{task.type !== 'center' ? task.description : <Image src={centerPhoto} alt="a + e, andrew and erika" />}
+			{task.type !== 'center' ? (
+				<span className="text-ellipsis overflow-hidden">{task.description}</span>
+			) : (
+				<Image src={centerPhoto} alt="a + e, andrew and erika" />
+			)}
 		</>
 	);
 }
