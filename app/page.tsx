@@ -1,22 +1,68 @@
-import getUser from '@/utils/auth';
+'use client';
+import checkForGame from '@/utils/checkForGame';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import react, { useEffect, useState } from 'react';
 
-export default async function Home() {
-  // Get user session token
-  const user = await getUser('/');
+export default function Home() {
+  const { data: session } = useSession();
+  const [gameSecret, setGameSecret] = useState<string>('');
+  const [gameNotFoundMessage, setMessage] = useState({ title: '', subtitle: '' });
+  const router = useRouter();
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (!session?.user) router.push('/login');
+    }, 1000);
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [session?.user]);
+
+  const goToGame = async (e: react.FormEvent) => {
+    e.preventDefault();
+    const message = await checkForGame(gameSecret);
+    setMessage(message);
+  };
+
   return (
-    <div>
-      <h2>My Amazing App</h2>
-
-      {user && (
-        <div>
-          <p>Signed in as {user.name && user.email}</p>
-          <a href="/api/auth/signout">Sign out by link</a>
-        </div>
+    <section className="text-gold mt-28 mx-10 flex flex-col items-center">
+      <h1 className="text-5xl text-center my-14"> WELCOME TO BINGO</h1>
+      {session?.user ? (
+        <>
+          <form className="flex flex-col items-center justify-center">
+            <label className="flex flex-col items-start text-xl">
+              Game Secret:
+              <input
+                required
+                className="text-l border rounded-sm border-lightGold p-3"
+                placeholder="Enter your game secret"
+                value={gameSecret}
+                onChange={(e) => setGameSecret(e.target.value)}
+              />
+            </label>
+            {gameNotFoundMessage?.title ? (
+              <p className="text-red-500 text-xl">
+                {gameNotFoundMessage.title}
+                <span className="block">{gameNotFoundMessage.subtitle}</span>
+              </p>
+            ) : null}
+            <button
+              onClick={(e) => goToGame(e)}
+              className="border bg-lightGold text-2xl py-2 px-14 mt-8 rounded-sm border-lightGold bg-opacity-40"
+            >
+              Go to Game
+            </button>
+          </form>
+          <button
+            className="border bg-lightGold text-xl py-2 px-8 mt-8 rounded-sm border-lightGold bg-opacity-20"
+            onClick={() => signOut()}
+          >
+            Sign out
+          </button>
+        </>
+      ) : (
+        'Loading...'
       )}
-
-      {!user && <p>Not signed in</p>}
-    </div>
+    </section>
   );
 }
-//on '/' is user logged in?, do they have a game in progress (usertasks matching their id), redirect to their game, otherwise redirect to login, etc (what if they dont have the secret and go to the home page?)
-//loading gif?
