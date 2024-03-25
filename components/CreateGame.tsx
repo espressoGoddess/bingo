@@ -1,15 +1,21 @@
 'use client';
+import addNewGame from '@/utils/addNewGame';
 import { useState } from 'react';
 
 export default function CreateGame() {
 	const [name, setName] = useState<string | undefined>('');
 	const [tagline, setTagline] = useState<string | undefined>('');
 	const [allowCustomTasks, setAllowCustomTasks] = useState<string>('');
+	const [gameSecret, setGameSecret] = useState<string | undefined>('');
 
-	const createGame = (e: React.FormEvent) => {
+	const createGame = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (name && tagline && allowCustomTasks) {
-			console.log('meow');
+		if (name && tagline && allowCustomTasks && gameSecret) {
+			try {
+				const newGame = await addNewGame(name, tagline, allowCustomTasks, gameSecret.toUpperCase());
+			} catch {
+				console.error('error creating game');
+			}
 		}
 	};
 
@@ -49,6 +55,16 @@ export default function CreateGame() {
 						<option value="1">Yes</option>
 						<option value="0">No</option>
 					</select>
+				</label>
+				<label className="flex flex-col items-start text-xl m-8">
+					What code do users need to access your game?
+					<input
+						required
+						className="text-l border rounded-sm border-lightGold invalid:border-red-500 p-3 mt-3"
+						placeholder="Secret code"
+						value={gameSecret}
+						onChange={(e) => setGameSecret(e.target.value)}
+					/>
 				</label>
 				<button
 					onClick={(e) => createGame(e)}
