@@ -1,5 +1,5 @@
-import CreateGame from '@/components/CreateGame';
+import CreateOrEditGame from '@/components/CreateOrEditGame';
 
 export default function Page() {
-	return <CreateGame />;
+	return <CreateOrEditGame />;
 }

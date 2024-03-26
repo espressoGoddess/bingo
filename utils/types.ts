@@ -27,3 +27,12 @@ export type User = {
 	name: string;
 	id: number;
 };
+
+export type Game = {
+	id: number;
+	name: string;
+	tagline: string;
+	secret: string;
+	allowCustomTasks: boolean;
+	createdByUserId: number;
+};
