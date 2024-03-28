@@ -17,8 +17,13 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 		return <p>Error: no game</p>;
 	}
 
-	const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
-	if (userTasks?.length) {
+	const { count } = await supabase
+		.from('users_tasks')
+		.select('*', { count: 'exact', head: true })
+		.eq('user_id', user.id);
+
+	if (count) {
+		const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
 		return (
 			<ScreenLayout title={games[0].name}>
 				<Board tasks={userTasks} />
