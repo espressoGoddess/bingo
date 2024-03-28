@@ -11,6 +11,7 @@ export default async function getUserTasksWithInfo(
     .select(`*,tasks:tasks(game_id, type, description),free_space_user_added_tasks(description)`)
     .eq('tasks.game_id', gameId)
     .eq('user_id', userId);
+  console.log(data, 'data inside getUserTasksWithInfo');
   if (fetchError) {
     throw fetchError;
   }
