@@ -18,6 +18,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	}
 
 	const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
+	console.log('thinks there are already user tasks..', userTasks);
 	if (userTasks?.length) {
 		return (
 			<ScreenLayout title={games[0].name}>
@@ -45,6 +46,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	if (error) {
 		throw error;
 	}
+	console.log(games[0].name, newUserTasks);
 	return (
 		<ScreenLayout title={games[0].name}>
 			<Board tasks={newUserTasks} />
