@@ -5,6 +5,7 @@ import createBoard from '@/utils/createBoard';
 import getUserTasksWithInfo from '@/utils/getUserTasks';
 import { createClient } from '@/utils/supabase/server';
 
+export const revalidate = 0;
 export default async function Page({ params }: { params: { gameSecret: string } }) {
 	const supabase = createClient();
 	const user = await getUser(`/g/${params.gameSecret}/b/`);
@@ -18,7 +19,6 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	}
 
 	const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
-	console.log('after fetching userTasks (may not exist yet)', userTasks);
 	if (userTasks?.length) {
 		return (
 			<ScreenLayout title={games[0].name}>
@@ -50,8 +50,6 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	if (error) {
 		throw error;
 	}
-	console.log('data from insertion', data);
-	console.log(games[0].name, newUserTasks);
 	return (
 		<ScreenLayout title={games[0].name}>
 			<Board tasks={newUserTasks} />
