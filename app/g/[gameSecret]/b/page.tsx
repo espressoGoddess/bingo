@@ -18,7 +18,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	}
 
 	const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
-	console.log('thinks there are already user tasks..', userTasks);
+	console.log('after fetching userTasks (may not exist yet)', userTasks);
 	if (userTasks?.length) {
 		return (
 			<ScreenLayout title={games[0].name}>
@@ -45,6 +45,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 			})),
 		)
 		.select();
+	await new Promise((resolve) => setTimeout(resolve, 4000));
 	const newUserTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	if (error) {
 		throw error;
