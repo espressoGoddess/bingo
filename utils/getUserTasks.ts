@@ -1,6 +1,6 @@
 import { createClient } from './supabase/server';
 import { EnrichedUserTask, UserTask } from './types';
-
+export const revalidate = 0;
 export default async function getUserTasksWithInfo(
   gameId: number,
   userId: number,
