@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	}
 
 	const newTasks = createBoard(tasks, user.id);
-	const { error } = await supabase.from('users_tasks').insert(
+	const { data, error } = await supabase.from('users_tasks').insert(
 		newTasks.map((task) => ({
 			task_id: task.task_id,
 			user_id: task.user_id,
@@ -46,6 +46,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	if (error) {
 		throw error;
 	}
+	console.log('data from insertion', data);
 	console.log(games[0].name, newUserTasks);
 	return (
 		<ScreenLayout title={games[0].name}>
