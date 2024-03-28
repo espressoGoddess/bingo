@@ -5,6 +5,7 @@ export default async function getUserTasksWithInfo(
   gameId: number,
   userId: number,
 ): Promise<EnrichedUserTask[]> {
+  console.log('game id and user id', gameId, userId);
   const supabase = createClient();
   const { data, error: fetchError } = await supabase
     .from('users_tasks')
