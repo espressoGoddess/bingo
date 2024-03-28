@@ -5,7 +5,6 @@ import createBoard from '@/utils/createBoard';
 import getUserTasksWithInfo from '@/utils/getUserTasks';
 import { createClient } from '@/utils/supabase/server';
 
-export const revalidate = 0;
 export default async function Page({ params }: { params: { gameSecret: string } }) {
 	const supabase = createClient();
 	const user = await getUser(`/g/${params.gameSecret}/b/`);
@@ -18,8 +17,14 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 		return <p>Error: no game</p>;
 	}
 
-	const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
-	if (userTasks?.length) {
+	const { count } = await supabase
+		.from('users_tasks')
+		.select('*', { count: 'exact', head: true })
+		.eq('user_id', user.id);
+	console.log('count:', count);
+
+	if (count) {
+		const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
 		return (
 			<ScreenLayout title={games[0].name}>
 				<Board tasks={userTasks} />
@@ -33,19 +38,16 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	}
 
 	const newTasks = createBoard(tasks, user.id);
-	const { data, error } = await supabase
-		.from('users_tasks')
-		.insert(
-			newTasks.map((task) => ({
-				task_id: task.task_id,
-				user_id: task.user_id,
-				completed: task.completed,
-				grid_row: task.grid_row,
-				grid_column: task.grid_column,
-			})),
-		)
-		.select();
-	await new Promise((resolve) => setTimeout(resolve, 4000));
+	const { data, error } = await supabase.from('users_tasks').insert(
+		newTasks.map((task) => ({
+			task_id: task.task_id,
+			user_id: task.user_id,
+			completed: task.completed,
+			grid_row: task.grid_row,
+			grid_column: task.grid_column,
+		})),
+	);
+
 	const newUserTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	if (error) {
 		throw error;
