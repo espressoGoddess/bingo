@@ -45,7 +45,6 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 			})),
 		)
 		.select();
-	await new Promise((resolve) => setTimeout(resolve, 4000));
 	const newUserTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	if (error) {
 		throw error;
