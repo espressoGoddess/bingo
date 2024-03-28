@@ -30,6 +30,7 @@ export default function Home() {
       {session?.user ? (
         <>
           <form className="flex flex-col items-center justify-center">
+            {/*@TODO - properly encode (think about spaces)*/}
             <label className="flex flex-col items-start text-xl">
               Game Secret:
               <input
