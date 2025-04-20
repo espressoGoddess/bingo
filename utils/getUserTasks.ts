@@ -20,15 +20,17 @@ export default async function getUserTasksWithInfo(
       type: string;
       description: string;
     };
-    free_space_user_added_tasks: {
-      description: string;
-    };
+    free_space_user_added_tasks: [
+      {
+        description: string;
+      },
+    ];
   })[] = data;
 
   return userTasksWithInfo.map((uT) => ({
     ...uT,
     game_id: uT.tasks.game_id,
     type: uT.tasks.type,
-    description: uT.free_space_user_added_tasks?.description ?? uT.tasks.description,
+    description: uT.free_space_user_added_tasks[0]?.description ?? uT.tasks.description,
   }));
 }
