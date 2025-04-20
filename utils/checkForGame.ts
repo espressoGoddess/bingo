@@ -4,10 +4,7 @@ import { createClient } from './supabase/server';
 
 export default async function checkForGame(gameSecret: string) {
 	const supabase = createClient();
-	const { data: game } = await supabase
-		.from('games')
-		.select()
-		.eq('secret', decodeURIComponent(gameSecret).toUpperCase());
+	const { data: game } = await supabase.from('games').select().eq('secret', decodeURIComponent(gameSecret));
 
 	if (game?.length) {
 		return redirect(`/g/${gameSecret}`);

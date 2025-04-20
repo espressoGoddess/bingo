@@ -7,7 +7,7 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 	const { data: game } = await supabase
 		.from('games')
 		.select()
-		.eq('secret', decodeURIComponent(params.gameSecret).toUpperCase());
+		.eq('secret', decodeURIComponent(params.gameSecret));
 
 	if (game?.length) {
 		return (
