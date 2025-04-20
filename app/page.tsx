@@ -3,6 +3,7 @@ import checkForGame from '@/utils/checkForGame';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import react, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   const { data: session } = useSession();
@@ -17,6 +18,14 @@ export default function Home() {
       clearTimeout(timerId);
     };
   }, [session?.user]);
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      toast.success('Try password `coffee-secret-123`', { duration: 30_000 });
+    }, 500);
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, []);
 
   const goToGame = async (e: react.FormEvent) => {
     e.preventDefault();
@@ -63,6 +72,7 @@ export default function Home() {
       ) : (
         'Loading...'
       )}
+      <Toaster position="top-right" />
     </section>
   );
 }
