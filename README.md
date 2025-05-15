@@ -20,13 +20,13 @@ Technologies used:
 - Tailwind CSS
 
 # Preview
-<div align="center">
+<div>
   <img src="./assets/gameBoard.png" alt="Screenshot of Bingo Gameboard" style="height:600px; width:auto; border:1px solid #eee; margin:1rem 0;" />
   <img src="./assets/singleTask.png" alt="Screenshot of Single Task Details" style="height:600px; width:auto; border:1px solid #eee; margin:1rem 0;" />
 </div>
 
 ## 🧩 Database Architecture
-<div align="center">
+<div>
   <img src="./assets/DB.png" alt="Database Schema Visualization" style="height:600px; width:auto; border:1px solid #eee; margin:1rem 0;" />
   <p><em>Normalized database schema showing table relationships</em></p>
 </div>
