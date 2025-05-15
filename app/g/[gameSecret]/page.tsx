@@ -2,7 +2,6 @@ import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
 
 export default async function Page({ params }: { params: { gameSecret: string } }) {
-	//if the game doesnt exist and there is a user, show game not found, did you mean a+e? - click here to go to game
 	const supabase = createClient();
 	const { data: game } = await supabase
 		.from('games')
