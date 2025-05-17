@@ -16,5 +16,5 @@ export default async function page({ params }: { params: { gameSecret: string } 
   }
 
   const { data: tasks } = await supabase.from('tasks').select().eq('game_id', games[0].id);
-  return <PrintConfiguration tasks={tasks ?? []} />;
+  return <PrintConfiguration tasks={tasks ?? []} title={games[0].name} subtitle={games[0].tagline} />;
 }

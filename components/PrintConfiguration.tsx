@@ -3,7 +3,15 @@ import { Task } from '@/utils/types';
 import PrintableGame from '@/components/PrintableGame';
 import { useState } from 'react';
 
-export default function PrintConfiguration({ tasks }: { tasks: Task[] }) {
+export default function PrintConfiguration({
+  tasks,
+  title,
+  subtitle,
+}: {
+  tasks: Task[];
+  title: string;
+  subtitle: string;
+}) {
   const [copies, setCopies] = useState<number>(1);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
@@ -36,7 +44,7 @@ export default function PrintConfiguration({ tasks }: { tasks: Task[] }) {
             className={`${index === 0 ? '' : 'screen:hidden'} ${index !== copies - 1 ? 'break-after-page' : ''} `}
             key={index}
           >
-            <PrintableGame tasks={tasks} key={index} />
+            <PrintableGame tasks={tasks} key={index} title={title} subtitle={subtitle} />
           </div>
         );
       })}
