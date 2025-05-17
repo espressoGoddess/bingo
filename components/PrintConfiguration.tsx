@@ -19,6 +19,9 @@ export default function PrintConfiguration({
       setCopies(value);
     }
   };
+  const handlePrint = () => {
+    window.print();
+  };
 
   return (
     <main className="min-h-screen">
@@ -35,6 +38,12 @@ export default function PrintConfiguration({
             value={copies}
             onChange={handleChange}
           />
+          <button
+            className="border bg-lightGold text-3xl py-2 ml-10 px-20 rounded-md text-gold border-lightGold bg-opacity-20"
+            onClick={handlePrint}
+          >
+            Print
+          </button>
         </div>
         <p className="text-gold mt-6 mb-4">Print Preview:</p>
       </div>
