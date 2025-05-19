@@ -44,3 +44,4 @@ A multiplayer bingo game. Users can join games, track tasks, and mark completion
 - 🛠️ Built-in admin dashboard for custom game creation
 - 📊 Game statistics tracking
 - ⚡ Real-time player updates
+- 📸 Photo uploading
