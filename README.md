@@ -9,9 +9,10 @@ A multiplayer bingo game. Users can join games, track tasks, and mark completion
 - User authentication with OAuth
 - Game progress saved to backend db
 - Responsive Tailwind UI
-- Normalized database architecture for scalability
+- Normalized database architecture
+- Print Preview feature that allows users to generate arbitrary number of unique boards
 
-### Technologies used:
+### Technologies & Tooling used:
 - TypeScript
 - Next.js
 - Supabase
@@ -43,3 +44,4 @@ A multiplayer bingo game. Users can join games, track tasks, and mark completion
 - 🛠️ Built-in admin dashboard for custom game creation
 - 📊 Game statistics tracking
 - ⚡ Real-time player updates
+- 📸 Photo uploading
