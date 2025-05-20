@@ -8,7 +8,7 @@ export default async function getUserTasksWithInfo(
   const supabase = createClient();
   const { data, error: fetchError } = await supabase
     .from('users_tasks')
-    .select(`*,tasks:tasks(game_id, type, description),free_space_user_added_tasks(description)`)
+    .select(`*,tasks(game_id, type, description),free_space_user_added_tasks(description)`)
     .eq('tasks.game_id', gameId)
     .eq('user_id', userId);
   if (fetchError) {
