@@ -1,11 +1,9 @@
 import { createClient } from '@/utils/supabase/server';
 
 import PrintConfiguration from '@/components/PrintConfiguration';
-import getUser from '@/utils/auth';
 
 export default async function page({ params }: { params: { gameSecret: string } }) {
   const supabase = createClient();
-  await getUser(`/g/${params.gameSecret}/print/`);
   const { data: games } = await supabase
     .from('games')
     .select()
