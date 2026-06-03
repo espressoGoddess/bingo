@@ -27,7 +27,7 @@ export default function BoardRow({
 			}
 		}
 	};
-	const height = printPreview ? 'screen:h-28' : 'screen:h-24';
+	const height = printPreview ? 'screen:h-28' : 'screen:h-24 md:h-32';
 	const orderedTasks = userTasks.sort((a, b) => a.grid_column - b.grid_column);
 	const items = orderedTasks.map((task) => (
 		<article
