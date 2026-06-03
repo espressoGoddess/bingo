@@ -19,8 +19,9 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 
 	const { count } = await supabase
 		.from('users_tasks')
-		.select('*', { count: 'exact', head: true })
-		.eq('user_id', user.id);
+		.select('*, tasks!inner(game_id)', { count: 'exact', head: true })
+		.eq('user_id', user.id)
+		.eq('tasks.game_id', games[0].id);
 
 	if (count) {
 		const userTasks = await getUserTasksWithInfo(games[0].id, user.id);
@@ -46,10 +47,10 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 			grid_column: task.grid_column,
 		})),
 	);
-	const newUserTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	if (error) {
 		throw error;
 	}
+	const newUserTasks = await getUserTasksWithInfo(games[0].id, user.id);
 	return (
 		<ScreenLayout title={games[0].name}>
 			<Board tasks={newUserTasks} />

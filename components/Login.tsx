@@ -4,7 +4,8 @@ import { useSearchParams } from 'next/navigation';
 
 export default function Login() {
   const { data: session } = useSession();
-  const callbackUrl = useSearchParams().get('redirect_to');
+  const rawRedirect = useSearchParams().get('redirect_to');
+  const callbackUrl = rawRedirect?.startsWith('/') ? rawRedirect : '/';
   return (
     <section className="text-gold mt-28 mx-10 flex flex-col items-center">
       <h1 className="text-5xl text-center"> WELCOME TO BINGO</h1>
@@ -26,7 +27,7 @@ export default function Login() {
             className="border bg-lightGold text-2xl py-2 px-14 rounded-sm border-lightGold bg-opacity-20"
             onClick={() =>
               signIn('google', {
-                callbackUrl: callbackUrl ?? '',
+                callbackUrl,
               })
             }
           >
