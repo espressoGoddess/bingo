@@ -1,7 +1,7 @@
 import { Task, UserTask } from './types';
 
 export default function createBoard(tasks: Task[], userId: number): UserTask[] {
-	if (tasks.length < 24) {
+	if (tasks.length < 25) {
 		throw new Error('Not enough tasks for game');
 	}
 	const game_id = tasks[0].game_id;
