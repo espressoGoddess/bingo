@@ -10,18 +10,18 @@ export default async function Page({ params }: { params: { gameSecret: string } 
 
 	if (game?.length) {
 		return (
-			<section className="text-gold text-l mt-28 mx-8">
+			<section className="text-gold text-l mt-28 mx-14">
 				<h1>
 					Welcome to <br />
-					<span className="text-5xl">{game[0].name.toUpperCase() + '!'}</span>
+					<span className="text-4xl">{game[0].name.toUpperCase() + '!'}</span>
 				</h1>
 				<p className="my-28">
 					A game of <br />
-					<span className="text-5xl">{game[0].tagline.toUpperCase()}</span>
+					<span className="text-4xl">{game[0].tagline.toUpperCase()}</span>
 				</p>
 				<div className="w-full flex justify-center">
 					<Link
-						className="border bg-lightGold text-5xl py-2 px-20 rounded-md border-lightGold bg-opacity-20"
+						className="border bg-lightGold text-4xl py-2 px-20 rounded-md border-lightGold bg-opacity-20"
 						href={`/g/${params.gameSecret}/b`}
 					>
 						Start
