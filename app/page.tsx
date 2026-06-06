@@ -21,7 +21,7 @@ export default function Home() {
   useEffect(() => {
     const timerId = setTimeout(() => {
       toast.success('Try password `coffee-secret-123`', { duration: 30_000 });
-    }, 500);
+    }, 2000);
     return () => {
       clearTimeout(timerId);
     };
