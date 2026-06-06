@@ -45,7 +45,7 @@ export default function createBoard(tasks: Task[], userId: number): UserTask[] {
 	}
 	return userTasks;
 }
-
+//Fisher-Yates shuffle
 function shuffle(a: Task[]) {
 	const b = [...a];
 	var j, x, i;
