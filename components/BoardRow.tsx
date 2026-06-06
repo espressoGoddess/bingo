@@ -52,7 +52,7 @@ function TaskContents({ task }: { task: EnrichedUserTask }) {
 			{task.type !== 'center' ? (
 				<span className="text-ellipsis overflow-hidden hyphens-auto">{task.description}</span>
 			) : (
-				<Image src={centerPhoto} alt="a + e, andrew and erika" />
+				<Image src={centerPhoto} alt="center of bingo board, looks like coffee beans" />
 			)}
 		</>
 	);
