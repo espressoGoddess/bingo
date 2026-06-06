@@ -9,6 +9,7 @@ import { useState } from 'react';
 export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTask; gameSecret: string }) {
 	const [taskCache, setTaskCache] = useState(task);
 	const [freeSpaceTask, setFreeSpaceTask] = useState('');
+	const [hasUpdated, setHasUpdated] = useState(false);
 
 	const addFreeSpaceTask = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -30,6 +31,7 @@ export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTa
 				...taskCache,
 				...response,
 			});
+			setHasUpdated(true);
 		} catch (error) {
 			console.error('Error updating task:', error);
 		}
@@ -86,7 +88,7 @@ export default function TaskDetails({ task, gameSecret }: { task: EnrichedUserTa
 					className="w-40 border text-center leading-4 bg-lightGold text-l py-4 px-12 rounded-sm border-lightGold bg-opacity-40"
 					href={`/g/${gameSecret}/b`}
 				>
-					Cancel
+					{hasUpdated ? 'Close' : 'Cancel'}
 				</Link>
 			</div>
 		</section>
